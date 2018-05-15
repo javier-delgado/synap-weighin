@@ -10,9 +10,7 @@ class LeaguesController < ApplicationController
   end
 
   def create
-    @league = League.new(league_params)
-    @league.event = @event
-    @league.save
+    @league = CreateLeague.call(league_params[:name], @event)
     redirect_to league_path(@league)
   end
   
@@ -32,9 +30,7 @@ class LeaguesController < ApplicationController
   end
   
   def signup
-    person_league_join = PersonLeagueJoin.new(person_league_join_params)
-    person_league_join.league_id = params[:league_id]
-    person_league_join.save
+    SignupToLeague.call(person_league_join_params[:person_id], params[:league_id])
     redirect_to league_path(params[:league_id])
   end
 

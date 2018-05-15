@@ -8,7 +8,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create(event_params)
+    @event = CreateEvent.call(event_params[:name], event_params[:tagline])
     redirect_to people_path
   end
 
